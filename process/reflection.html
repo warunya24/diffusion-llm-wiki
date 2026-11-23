@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Reflection</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='reflection.md'>view .md source</a></div><h1>Reflection</h1>
+<h2>1. Which node failed most often?</h2>
+<p><strong>N6 (slide generation), caught by C2.</strong> On the first run it produced <strong>13 problems</strong>, more than all the other nodes combined
+(ingest: 2 problems in 7 runs; lint: 1; render: 3 visual issues).</p>
+<p>The interesting part is <em>why</em>. Every fact in the wiki was already checked, so the errors were not wrong sources.
+They appeared when the AI <strong>turned wiki facts into teaching text</strong>:
+- It "helped" by doing extra arithmetic ("48× fewer numbers") or converting units ("10–20%"). These numbers look reasonable but appear in no source.
+- It used vocabulary before teaching it ("forward process" on slide 3, "guidance scale" on the roadmap), because to the AI the words were already familiar.
+- It cited too few wiki pages on summary slides, so true facts looked unsupported.</p>
+<p>The second most error-prone node was <strong>N7 (render)</strong>: the script said PASS, but looking at the screenshots found 3 layout problems.</p>
+<h2>2. After finding the problem, where did I move the check?</h2>
+<p>I moved it <strong>from after generation (C2) to before generation, at the planning step</strong>, by adding a new node:</p>
+<p><strong>N5 Fact sheet</strong> (<code>tools/make_factsheet.py</code>). Before any slide is written, it reads the slide plan and produces, for every slide:
+- the exact numeric facts it may use (copied from the wiki pages that slide will cite),
+- the terms already defined by earlier slides,
+- the terms that are <strong>not yet allowed</strong>.</p>
+<p>So the generator now sees the boundary <em>while writing</em>, instead of being corrected afterwards. C2 stays as a safety net.</p>
+<p>Earlier in the run I had also already moved a check forward on the wiki side: numbers are verified <strong>at ingest time</strong> against the raw capture (C1),
+not at the end. That is why the two source conflicts (CLIP "400 million", CFG w vs s) were found during ingest and never reached the slides as errors.
+Instead they became a teaching point (the ⚠️ box on slide 13).</p>
+<h2>3. Did I change the workflow / graph? Why?</h2>
+<p><strong>Yes, from v1 to v2:</strong>
+1. <strong>Added N5 (fact sheet) between the slide plan and generation.</strong> Most C2 failures were predictable from the plan alone: which page a slide cites and which terms come later. Checking at the plan stage is cheaper than regenerating slides.
+2. <strong>Changed the C2 → N6 loop to "regenerate only the failing slides".</strong> Regenerating the whole deck could break slides that already passed.
+3. <strong>Added a human look to N7.</strong> The browser script checks errors, overflow and links, but it said PASS while the CFG demo was visually wrong. Some checks can't be automated.
+4. <strong>Small convention changes</strong> found by the checks: placeholders are written as plain text, not bullets (C1 false failure), and step labels are marked <code>nocheck</code> (C2 false positives). A checker that cries wolf gets ignored, so false positives are worth fixing too.</p>
+<h2>What I learned</h2>
+<ul>
+<li>A grounded knowledge base is not enough. <strong>The step that rewrites knowledge for an audience is where hallucination comes back</strong>, even with good sources.</li>
+<li>The cheapest place to catch an error is the earliest node that <em>could</em> have known about it.</li>
+<li>A PASS only means something if the checker can fail. I tested it with 3 injected faults before trusting it.</li>
+</ul></body></html>

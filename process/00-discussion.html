@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Step 0: &quot;Discuss first, then generate&quot;</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='00-discussion.md'>view .md source</a></div><h1>Step 0: "Discuss first, then generate"</h1>
+<p>Before generating any wiki page, I discussed the scope with the AI and agreed on the decisions below.
+Only after this did ingest start.</p>
+<h2>Topic</h2>
+<p><strong>How does AI turn text into images? (Diffusion models)</strong>
+Why this topic: it is the core technology behind my Generative AI final project (an AI song cover art generator),
+so this wiki doubles as background research for that project.</p>
+<h2>Audience</h2>
+<p>A classmate who knows what a neural network and a loss function are, but has never studied image generation.</p>
+<h2>Questions the wiki must be able to answer</h2>
+<ol>
+<li>What does "diffusion" mean here? Why add noise to images on purpose?</li>
+<li>How does the model learn? What exactly does the neural network predict?</li>
+<li>How does a picture come out of pure noise?</li>
+<li>Why is it fast enough to run on one GPU? (latent space)</li>
+<li>How does the <em>text</em> get into the picture? (text encoder + cross-attention)</li>
+<li>Why does a prompt get followed strongly? What is the "guidance scale"?</li>
+<li>What happens, step by step, when I type a prompt into Stable Diffusion?</li>
+</ol>
+<h2>Agreed concept pages (planned before ingest)</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Answers question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>diffusion-model</td>
+<td>1</td>
+</tr>
+<tr>
+<td>forward-process, noise-schedule</td>
+<td>1</td>
+</tr>
+<tr>
+<td>noise-prediction-training</td>
+<td>2</td>
+</tr>
+<tr>
+<td>reverse-process</td>
+<td>3</td>
+</tr>
+<tr>
+<td>u-net</td>
+<td>2, 3</td>
+</tr>
+<tr>
+<td>sampling-steps</td>
+<td>3, 7</td>
+</tr>
+<tr>
+<td>latent-space</td>
+<td>4</td>
+</tr>
+<tr>
+<td>clip-text-encoder</td>
+<td>5</td>
+</tr>
+<tr>
+<td>cross-attention</td>
+<td>5</td>
+</tr>
+<tr>
+<td>classifier-free-guidance</td>
+<td>6</td>
+</tr>
+<tr>
+<td>stable-diffusion-pipeline</td>
+<td>7 (the "big picture" page)</td>
+</tr>
+</tbody>
+</table>
+<h2>Source plan (at least 5; we used 6)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Type</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ho, Jain &amp; Abbeel (2020), <em>Denoising Diffusion Probabilistic Models</em></td>
+<td>paper</td>
+<td>the original DDPM math</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Lilian Weng (2021, updated 2024), <em>What are Diffusion Models?</em></td>
+<td>blog</td>
+<td>a clear overview of all concepts</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Jay Alammar (2022), <em>The Illustrated Stable Diffusion</em></td>
+<td>blog</td>
+<td>beginner-friendly pictures &amp; shapes</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Radford et al. (2021), <em>CLIP</em>, paper + OpenAI blog</td>
+<td>paper/blog</td>
+<td>how text is understood</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Rombach et al. (2022), <em>Latent Diffusion Models</em></td>
+<td>paper</td>
+<td>why it runs in latent space; cross-attention</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ho &amp; Salimans (2022), <em>Classifier-Free Diffusion Guidance</em></td>
+<td>paper</td>
+<td>the guidance scale</td>
+</tr>
+</tbody>
+</table>
+<h2>Ground rules we agreed on</h2>
+<ul>
+<li>Explain in plain English first, math second (math is optional "for the curious").</li>
+<li>No number on any slide unless it is in the wiki with a source.</li>
+<li>If sources disagree, show the conflict instead of hiding it.</li>
+</ul></body></html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>RAW CAPTURE: Lilian Weng blog</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='02-weng-blog.md'>view .md source</a></div><h1>RAW CAPTURE: Lilian Weng blog</h1>
+<ul>
+<li>Title: What are Diffusion Models?</li>
+<li>Author: Lilian Weng (Lil'Log). Published 2021-07-11; updated 2021-09-19, 2022-08-27 (CFG, GLIDE, unCLIP, Imagen), 2022-08-31 (latent diffusion), 2024-04-13 (distillation, consistency models, architecture)</li>
+<li>URL: https://lilianweng.github.io/posts/2021-07-11-diffusion-models/</li>
+<li>Captured: 2026-11-23</li>
+</ul>
+<h2>Facts extracted (paraphrased)</h2>
+<ul>
+<li>Diffusion models are inspired by non-equilibrium thermodynamics: a Markov chain slowly adds random noise to data, and a model learns to reverse it to build samples from noise.</li>
+<li>Unlike VAE or flow models, the procedure is fixed and the latent has the SAME dimensionality as the data.</li>
+<li>Forward: add Gaussian noise over T steps, each with variance beta_t; after enough steps x_T is close to an isotropic Gaussian.</li>
+<li>"Nice property": with alpha_t = 1 - beta_t and alpha-bar_t = product, x_t = sqrt(abar_t) x_0 + sqrt(1 - abar_t) eps (jump to any step directly).</li>
+<li>Reverse: a network learns each reverse step as a Gaussian; training uses a variational lower bound (like a VAE).</li>
+<li>DDPM simplified loss: predict the added noise with mean squared error.</li>
+<li>Noise schedules: linear (DDPM) 1e-4 to 0.02 with T = 1000; cosine schedule (Nichol &amp; Dhariwal) changes noise more gently near the start and end.</li>
+<li>DDIM: deterministic when eta = 0; can skip steps (strided subset), so far fewer steps than DDPM with good quality.</li>
+<li>Other speedups: progressive distillation, consistency models.</li>
+<li>Classifier guidance uses gradients of a separate classifier; classifier-free guidance trains one network with the condition randomly dropped, then combines conditional and unconditional predictions at sampling time. GLIDE preferred CFG over CLIP guidance.</li>
+<li>Latent diffusion: autoencoder compresses images; diffusion runs in the smaller latent space; denoiser is a time-conditioned U-Net with cross-attention.</li>
+<li>U-Net: downsampling path (more channels, lower resolution), upsampling path, skip connections between them. DiT is a transformer alternative.</li>
+</ul></body></html>

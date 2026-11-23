@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>RAW CAPTURE: Classifier-Free Diffusion Guidance</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='06-classifier-free-guidance.md'>view .md source</a></div><h1>RAW CAPTURE: Classifier-Free Diffusion Guidance</h1>
+<ul>
+<li>Authors: Jonathan Ho, Tim Salimans (Google Research, Brain team). arXiv 2207.12598, July 2022 (short version at NeurIPS 2021 workshop)</li>
+<li>URL: https://arxiv.org/abs/2207.12598 (read via ar5iv HTML)</li>
+<li>Captured: 2026-11-23</li>
+</ul>
+<h2>Facts extracted (paraphrased)</h2>
+<ul>
+<li>Classifier guidance (Dhariwal &amp; Nichol 2021) needs an extra classifier trained on noisy images; it mixes the classifier's gradient into sampling, which looks like an adversarial attack on the classifier.</li>
+<li>Classifier-free guidance: jointly train a conditional and an unconditional model (one network; the condition is dropped with probability p_uncond), then combine the two predictions at sampling time.</li>
+<li>p_uncond tried: 0.1, 0.2, 0.5 on 64x64 ImageNet. 0.5 was worse; 0.1 and 0.2 were about equally good.</li>
+<li>Formula (paper, Eq. 6): eps_guided = (1 + w) * eps(x, c) - w * eps(x). w = 0 gives the plain conditional model.</li>
+<li>Increasing w: Inception score (fidelity) goes up; diversity goes down; best FID at small w (0.1 or 0.3 depending on dataset).</li>
+<li>Many later papers write the same rule as eps_uncond + s * (eps_cond - eps_uncond), where s = 1 + w. (seen in secondary sources found while searching, e.g. arXiv 2209.10948)</li>
+</ul></body></html>

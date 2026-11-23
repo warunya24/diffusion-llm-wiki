@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>RAW CAPTURE: Latent Diffusion Models (Stable Diffusion paper)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='05-latent-diffusion.md'>view .md source</a></div><h1>RAW CAPTURE: Latent Diffusion Models (Stable Diffusion paper)</h1>
+<ul>
+<li>Title: High-Resolution Image Synthesis with Latent Diffusion Models</li>
+<li>Authors: Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Bjorn Ommer (LMU Munich &amp; Heidelberg; Runway ML). CVPR 2022. arXiv 2112.10752</li>
+<li>URL: https://arxiv.org/abs/2112.10752 (read via ar5iv HTML)</li>
+<li>Captured: 2026-11-23</li>
+</ul>
+<h2>Facts extracted (paraphrased)</h2>
+<ul>
+<li>Pixel-space diffusion is expensive: training the strongest models can take hundreds of GPU days, and sampling needs many sequential network evaluations.</li>
+<li>Two stages: (1) pretrained autoencoder compresses images to a lower-dimensional latent space that is perceptually equivalent; (2) diffusion model trained in that latent space -&gt; Latent Diffusion Models (LDMs).</li>
+<li>Downsampling factor f: f between 4 and 16 balances efficiency and quality; LDM-4 and LDM-8 are best for high-quality synthesis. Too large f loses detail; too small trains slowly.</li>
+<li>Conditioning: a domain-specific encoder tau_theta turns the condition (e.g. a text prompt) into an intermediate representation, injected into the UNet through cross-attention layers. Works for text, bounding boxes, etc.</li>
+<li>Text-to-image model: 1.45B parameters (LDM-KL-8) trained on LAION.</li>
+<li>Tasks: unconditional, class-conditional, text-to-image, layout-to-image, inpainting, super-resolution, semantic synthesis; new state of the art for inpainting and class-conditional synthesis with much lower compute than pixel-based DMs.</li>
+</ul></body></html>

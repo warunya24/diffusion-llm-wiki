@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Training by predicting noise</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='noise-prediction-training.md'>view .md source</a></div><h1>Training by predicting noise</h1>
+<h2>One-line definition</h2>
+<p>The model is trained with one simple game: "here is a noisy image, guess exactly which noise was added".</p>
+<h2>Intuition / analogy</h2>
+<p>A teacher splashes a known pattern of paint on a photo and asks the student to point out the splash. Because the teacher made the splash, the correct answer is always known, so there are no human labels needed.</p>
+<h2>Details</h2>
+<ul>
+<li>The network eps_theta(x_t, t) receives the noisy image and the step number t and predicts the noise inside it. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>Loss = mean squared error between the real noise and the predicted noise (called L_simple). <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>Training loop: pick a training image, pick a random step t, sample noise, make the noisy image, take a gradient step on the loss. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>One training image gives many training examples, because noise can be added at many different amounts (from none to total noise). <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+</ul>
+<h2>Key numbers</h2>
+<ul>
+<li>The step t is drawn uniformly from 1 to T, with T = 1000. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="forward-process.html">forward-process</a> · <a href="reverse-process.html">reverse-process</a> · <a href="u-net.html">u-net</a></p></body></html>

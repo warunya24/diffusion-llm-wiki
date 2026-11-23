@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>RAW CAPTURE: DDPM paper</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='01-ddpm-paper.md'>view .md source</a></div><h1>RAW CAPTURE: DDPM paper</h1>
+<ul>
+<li>Title: Denoising Diffusion Probabilistic Models</li>
+<li>Authors: Jonathan Ho, Ajay Jain, Pieter Abbeel (UC Berkeley), NeurIPS 2020</li>
+<li>URL: https://arxiv.org/abs/2006.11239  (read via ar5iv HTML version)</li>
+<li>Captured: 2026-11-23</li>
+</ul>
+<h2>Facts extracted (paraphrased, not copied)</h2>
+<ul>
+<li>A diffusion model is a parameterized Markov chain trained with variational inference so that, after a finite number of steps, it produces samples that look like the data.</li>
+<li>Forward process q: a FIXED chain that adds Gaussian noise over T steps with a variance schedule beta_1..beta_T. The betas are constants, so q has nothing to learn.</li>
+<li>Closed form: any noisy x_t can be computed directly from x_0 using alpha-bar_t (product of 1-beta).</li>
+<li>Experiments: T = 1000; betas increase linearly from 1e-4 (beta_1) to 0.02 (beta_T).</li>
+<li>Reverse process p_theta: learned chain that starts from a standard Gaussian and uses Gaussian transitions.</li>
+<li>Parameterization: the network eps_theta(x_t, t) predicts the noise contained in x_t.</li>
+<li>Simplified objective L_simple: mean squared error between the true noise eps and the predicted noise; t sampled uniformly from 1..T. Drops the weighting of the full bound.</li>
+<li>Algorithm 1 (training): repeat: take a data image x_0, pick random t, sample noise eps, gradient step on ||eps - eps_theta(sqrt(abar_t) x_0 + sqrt(1-abar_t) eps, t)||^2.</li>
+<li>Algorithm 2 (sampling): start from x_T ~ N(0,I); for t = T..1 remove predicted noise and add a little fresh noise (except the last step); return x_0.</li>
+<li>Backbone: U-Net similar to unmasked PixelCNN++, group normalization, weights shared across time, time step given by Transformer sinusoidal position embedding, self-attention at 16x16 resolution.</li>
+<li>Result: unconditional CIFAR10 Inception score 9.46, FID 3.17 (state of the art at the time); 256x256 LSUN quality similar to ProgressiveGAN.</li>
+</ul></body></html>

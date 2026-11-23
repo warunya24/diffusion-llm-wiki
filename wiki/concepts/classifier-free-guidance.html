@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Classifier-free guidance (CFG, the &quot;guidance scale&quot;)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='classifier-free-guidance.md'>view .md source</a></div><h1>Classifier-free guidance (CFG, the "guidance scale")</h1>
+<h2>One-line definition</h2>
+<p>A trick that makes the image follow the prompt more strongly by comparing "what the model would draw with the prompt" vs "without the prompt" and pushing further in that direction.</p>
+<h2>Intuition / analogy</h2>
+<p>Ask an artist to draw "anything", then "a cat". The difference between the two drawings is "cat-ness". Guidance exaggerates that difference.</p>
+<h2>Details</h2>
+<ul>
+<li>Older classifier guidance used the gradients of a separate classifier to steer the noise prediction. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Classifier-free guidance trains one network with the condition randomly dropped, so it learns both conditional and unconditional predictions, then combines them while sampling. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>GLIDE found classifier-free guidance worked better than CLIP guidance. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Problem with classifier guidance: it needs an extra classifier trained on noisy images, and mixing in its gradient resembles an adversarial attack on that classifier. <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+<li>CFG trains a single network on both tasks: the condition is replaced by "empty" with probability p_uncond during training. <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+<li>Paper's formula: guided noise = (1 + w) × noise_with_prompt − w × noise_without_prompt; w = 0 means no extra guidance. <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+<li>Larger w → higher fidelity (Inception score rises) but less diversity; the best FID came at small w. <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+</ul>
+<blockquote>
+<p>⚠️ Conflict (found at ingest #6): the paper writes (1 + w)·cond − w·uncond, but most later papers and tools write uncond + s·(cond − uncond). These are the <strong>same rule</strong> with s = 1 + w. So a tool's "guidance scale" s is <em>not</em> the paper's w (s = 1 means no extra guidance). <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></p>
+</blockquote>
+<h2>Key numbers</h2>
+<ul>
+<li>p_uncond tested: 0.1, 0.2, 0.5; 0.1 and 0.2 worked equally well, 0.5 was worse. <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+<li>Best FID at w = 0.1 or 0.3 (depends on dataset). <a class="src" href="../../wiki/sources/classifier-free-guidance-paper.html">src: classifier-free-guidance-paper</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="reverse-process.html">reverse-process</a> · <a href="stable-diffusion-pipeline.html">stable-diffusion-pipeline</a> · <a href="clip-text-encoder.html">clip-text-encoder</a></p></body></html>

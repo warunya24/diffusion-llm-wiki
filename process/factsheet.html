@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Fact sheet: generated from the wiki before writing slides</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='factsheet.md'>view .md source</a></div><h1>Fact sheet: generated from the wiki before writing slides</h1>
+<p>Rule: a slide may only use numbers in its <em>allowed numbers</em> list and terms in <em>allowed terms</em>.</p>
+<h2>Slide 1: Title</h2>
+<ul>
+<li>wiki pages: index.md, concepts/diffusion-model.md</li>
+<li>defines here: diffusion model</li>
+<li>allowed terms: diffusion model</li>
+<li>NOT yet allowed: forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 3.17, 10, 2020</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>[ddpm: DDPM paper (2020)  ← <code>index.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>DDPM reached FID 3.17 on unconditional CIFAR10 (lower FID = better image quality).  ← <code>concepts/diffusion-model.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 2: The questions we will answer</h2>
+<ul>
+<li>wiki pages: index.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model</li>
+<li>NOT yet allowed: forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 2020</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>[ddpm: DDPM paper (2020)  ← <code>index.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 3: The big idea</h2>
+<ul>
+<li>wiki pages: concepts/diffusion-model.md, sources/ddpm.md</li>
+<li>defines here: forward process, reverse process</li>
+<li>allowed terms: diffusion model, forward process, reverse process</li>
+<li>NOT yet allowed: noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 01, 1, 2, 3, 3.17, 4, 5, 10, 1000, 2006.11239, 2020</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>DDPM reached FID 3.17 on unconditional CIFAR10 (lower FID = better image quality).  ← <code>concepts/diffusion-model.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><strong>Citation:</strong> J. Ho, A. Jain, P. Abbeel. <em>Denoising Diffusion Probabilistic Models</em>. NeurIPS 2020. https://arxiv.org/abs/2006.11239  ← <code>sources/ddpm.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><strong>Raw capture:</strong> [01-ddpm-paper.md  ← <code>sources/ddpm.md</code></li>
+</ul>
+</li>
+<li>
+<ol>
+<li>The forward (noising) process is fixed: no learning, just a schedule of noise amounts.  ← <code>sources/ddpm.md</code></li>
+</ol>
+</li>
+<li>
+<ol>
+<li>You can jump straight from a clean image to any noise level in one formula.  ← <code>sources/ddpm.md</code></li>
+</ol>
+</li>
+<li>
+<ol>
+<li>The neural network only has to predict <strong>the noise</strong> that was added. The loss is a simple mean squared error.  ← <code>sources/ddpm.md</code></li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Generation = start from pure noise and remove predicted noise step by step (1000 steps in the paper).  ← <code>sources/ddpm.md</code></li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Backbone network is a U-Net that is told the time step.  ← <code>sources/ddpm.md</code></li>
+</ol>
+</li>
+</ul>
+<h2>Slide 4: Forward process (interactive)</h2>
+<ul>
+<li>wiki pages: concepts/forward-process.md, concepts/noise-schedule.md</li>
+<li>defines here: noise schedule</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule</li>
+<li>NOT yet allowed: noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 0, 1e-4, 0.02, 1, 1000</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>The forward process q adds Gaussian noise over T steps. The amount per step is set by a variance schedule beta_1 … beta_T.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut: any noisy version x_t can be computed directly from the clean image x_0 in one formula (no need to loop through all earlier steps).  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut formula: x_t = sqrt(alpha-bar_t) * x_0 + sqrt(1 - alpha-bar_t) * noise, where alpha-bar_t multiplies together (1 - beta) of all earlier steps.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>T = 1000 steps in the DDPM experiments.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Linear schedule from beta_1 = 1e-4 to beta_T = 0.02 with T = 1000.  ← <code>concepts/noise-schedule.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Weng's summary of the DDPM linear schedule: 1e-4 to 0.02, T = 1000 (agrees with the paper).  ← <code>concepts/noise-schedule.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 5: Shortcut formula</h2>
+<ul>
+<li>wiki pages: concepts/forward-process.md, concepts/noise-schedule.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule</li>
+<li>NOT yet allowed: noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 0, 1e-4, 0.02, 1, 1000</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>The forward process q adds Gaussian noise over T steps. The amount per step is set by a variance schedule beta_1 … beta_T.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut: any noisy version x_t can be computed directly from the clean image x_0 in one formula (no need to loop through all earlier steps).  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut formula: x_t = sqrt(alpha-bar_t) * x_0 + sqrt(1 - alpha-bar_t) * noise, where alpha-bar_t multiplies together (1 - beta) of all earlier steps.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>T = 1000 steps in the DDPM experiments.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Linear schedule from beta_1 = 1e-4 to beta_T = 0.02 with T = 1000.  ← <code>concepts/noise-schedule.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Weng's summary of the DDPM linear schedule: 1e-4 to 0.02, T = 1000 (agrees with the paper).  ← <code>concepts/noise-schedule.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 6: Training: guess the noise</h2>
+<ul>
+<li>wiki pages: concepts/noise-prediction-training.md</li>
+<li>defines here: noise prediction</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction</li>
+<li>NOT yet allowed: u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 1, 1000</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>The step t is drawn uniformly from 1 to T, with T = 1000.  ← <code>concepts/noise-prediction-training.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 7: U-Net</h2>
+<ul>
+<li>wiki pages: concepts/u-net.md</li>
+<li>defines here: u-net</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net</li>
+<li>NOT yet allowed: ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 16</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Self-attention is used at the 16x16 feature-map resolution.  ← <code>concepts/u-net.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Self-attention at 16x16 resolution.  ← <code>concepts/u-net.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 8: Reverse process (animation)</h2>
+<ul>
+<li>wiki pages: concepts/reverse-process.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net</li>
+<li>NOT yet allowed: ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 1, 50, 100, 1000</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>At every step from T down to 1, the predicted noise is removed and a small amount of fresh noise is added (except at the last step).  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Why do tools use only 50 or 100 steps if DDPM used 1000? Faster samplers such as DDIM can skip along a strided subset of steps with good quality (see sampling-steps).  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>DDPM runs the full 1000 steps to make one image.  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 9: Fewer steps: DDIM</h2>
+<ul>
+<li>wiki pages: concepts/sampling-steps.md, concepts/reverse-process.md</li>
+<li>defines here: ddim, sampling steps</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps</li>
+<li>NOT yet allowed: latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 0, 1, 50, 100, 1000</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>DDIM generalises the DDPM reverse process; with its parameter eta = 0 the process becomes deterministic (same noise in → same image out).  ← <code>concepts/sampling-steps.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>In Stable Diffusion interfaces the number of steps often defaults to 50 or 100.  ← <code>concepts/sampling-steps.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>DDPM training uses T = 1000 steps.  ← <code>concepts/sampling-steps.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Typical default in Stable Diffusion tools: 50 or 100 steps.  ← <code>concepts/sampling-steps.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>At every step from T down to 1, the predicted noise is removed and a small amount of fresh noise is added (except at the last step).  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Why do tools use only 50 or 100 steps if DDPM used 1000? Faster samplers such as DDIM can skip along a strided subset of steps with good quality (see sampling-steps).  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>DDPM runs the full 1000 steps to make one image.  ← <code>concepts/reverse-process.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 10: Latent space</h2>
+<ul>
+<li>wiki pages: concepts/latent-space.md</li>
+<li>defines here: latent space, autoencoder</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder</li>
+<li>NOT yet allowed: clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 1, 2, 3, 4, 8, 16, 64, 512</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Stable Diffusion denoises a latent of shape (4, 64, 64); the autoencoder's decoder turns it into an RGB image of shape (3, 512, 512), running only once at the end.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Two stages: (1) a pretrained autoencoder compresses images into a latent that still looks the same to humans; (2) the diffusion model is trained in that latent space.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Compression factor f: values from 4 to 16 balance speed and quality; f = 4 and f = 8 gave the best results. Too much compression loses detail; too little trains slowly.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Latent (4, 64, 64) → image (3, 512, 512).  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Downsampling factor f = 4 to 16 works well; best at 4 and 8.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 11: CLIP text encoder</h2>
+<ul>
+<li>wiki pages: concepts/clip-text-encoder.md</li>
+<li>defines here: clip, text encoder</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder</li>
+<li>NOT yet allowed: cross-attention, classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 77, 400, 768, 32768</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Stable Diffusion's text encoder (ClipText) outputs 77 token embeddings, each a vector of 768 numbers.  ← <code>concepts/clip-text-encoder.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>77 tokens × 768 dimensions.  ← <code>concepts/clip-text-encoder.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Trained on 400 million (image, text) pairs.  ← <code>concepts/clip-text-encoder.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Blog proxy task: choose the right caption out of 32,768 text snippets.  ← <code>concepts/clip-text-encoder.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 12: Cross-attention</h2>
+<ul>
+<li>wiki pages: concepts/cross-attention.md, concepts/u-net.md</li>
+<li>defines here: cross-attention</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention</li>
+<li>NOT yet allowed: classifier-free guidance, guidance scale</li>
+<li>allowed numbers: 16</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Self-attention is used at the 16x16 feature-map resolution.  ← <code>concepts/u-net.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Self-attention at 16x16 resolution.  ← <code>concepts/u-net.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 13: Classifier-free guidance (interactive)</h2>
+<ul>
+<li>wiki pages: concepts/classifier-free-guidance.md</li>
+<li>defines here: classifier-free guidance, guidance scale</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>NOT yet allowed: -</li>
+<li>allowed numbers: 0, 0.1, 0.2, 0.3, 0.5, 1</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Paper's formula: guided noise = (1 + w) × noise_with_prompt − w × noise_without_prompt; w = 0 means no extra guidance.  ← <code>concepts/classifier-free-guidance.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>p_uncond tested: 0.1, 0.2, 0.5; 0.1 and 0.2 worked equally well, 0.5 was worse.  ← <code>concepts/classifier-free-guidance.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Best FID at w = 0.1 or 0.3 (depends on dataset).  ← <code>concepts/classifier-free-guidance.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 14: Pipeline</h2>
+<ul>
+<li>wiki pages: concepts/stable-diffusion-pipeline.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>NOT yet allowed: -</li>
+<li>allowed numbers: 1, 1.45, 2, 3, 4, 50, 64, 77, 100, 512, 768</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>Step 1, text encoder (ClipText): prompt → 77 × 768 token embeddings.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Step 2, image information creator (U-Net + scheduler): starts from random noise in latent space and refines it step by step, using the text embeddings.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Step 3, image decoder (autoencoder): turns the final latent into the full-size image once.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>The paper's text-to-image model has 1.45B parameters and was trained on the LAION dataset.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Text 77 × 768; latent (4, 64, 64); image (3, 512, 512); 50 or 100 steps by default.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Text-to-image latent diffusion model: 1.45B parameters.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 15: Quiz</h2>
+<ul>
+<li>wiki pages: concepts/noise-prediction-training.md, concepts/forward-process.md, concepts/latent-space.md, concepts/classifier-free-guidance.md, concepts/clip-text-encoder.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>NOT yet allowed: -</li>
+<li>allowed numbers: 0, 0.1, 0.2, 0.3, 0.5, 1, 2, 3, 4, 8, 16, 64, 77, 400, 512, 768, 1000, 32768</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>The step t is drawn uniformly from 1 to T, with T = 1000.  ← <code>concepts/noise-prediction-training.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>The forward process q adds Gaussian noise over T steps. The amount per step is set by a variance schedule beta_1 … beta_T.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut: any noisy version x_t can be computed directly from the clean image x_0 in one formula (no need to loop through all earlier steps).  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Shortcut formula: x_t = sqrt(alpha-bar_t) * x_0 + sqrt(1 - alpha-bar_t) * noise, where alpha-bar_t multiplies together (1 - beta) of all earlier steps.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>T = 1000 steps in the DDPM experiments.  ← <code>concepts/forward-process.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Stable Diffusion denoises a latent of shape (4, 64, 64); the autoencoder's decoder turns it into an RGB image of shape (3, 512, 512), running only once at the end.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Two stages: (1) a pretrained autoencoder compresses images into a latent that still looks the same to humans; (2) the diffusion model is trained in that latent space.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Compression factor f: values from 4 to 16 balance speed and quality; f = 4 and f = 8 gave the best results. Too much compression loses detail; too little trains slowly.  ← <code>concepts/latent-space.md</code></li>
+</ul>
+</li>
+</ul>
+<h2>Slide 16: Summary</h2>
+<ul>
+<li>wiki pages: index.md, concepts/stable-diffusion-pipeline.md, concepts/sampling-steps.md, sources/clip.md, sources/latent-diffusion.md, sources/classifier-free-guidance-paper.md</li>
+<li>defines here: -</li>
+<li>allowed terms: diffusion model, forward process, reverse process, noise schedule, noise prediction, u-net, ddim, sampling steps, latent space, autoencoder, clip, text encoder, cross-attention, classifier-free guidance, guidance scale</li>
+<li>NOT yet allowed: -</li>
+<li>allowed numbers: 0, 1, 1.45, 2, 3, 4, 04, 5, 05, 06, 8, 10, 16, 20, 50, 64, 77, 100, 400, 512, 768, 1000, 2020, 2021, 2022, 2103.00020, 2112.10752, 2207.12598</li>
+<li>numeric facts available:</li>
+<li>
+<ul>
+<li>[ddpm: DDPM paper (2020)  ← <code>index.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Step 1, text encoder (ClipText): prompt → 77 × 768 token embeddings.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Step 2, image information creator (U-Net + scheduler): starts from random noise in latent space and refines it step by step, using the text embeddings.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Step 3, image decoder (autoencoder): turns the final latent into the full-size image once.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>The paper's text-to-image model has 1.45B parameters and was trained on the LAION dataset.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Text 77 × 768; latent (4, 64, 64); image (3, 512, 512); 50 or 100 steps by default.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Text-to-image latent diffusion model: 1.45B parameters.  ← <code>concepts/stable-diffusion-pipeline.md</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>DDIM generalises the DDPM reverse process; with its parameter eta = 0 the process becomes deterministic (same noise in → same image out).  ← <code>concepts/sampling-steps.md</code></li>
+</ul>
+</li>
+</ul></body></html>

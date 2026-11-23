@@ -1,0 +1,15 @@
+check_slides: 16 slides, 25 wiki refs, 15 tracked terms
+FAIL: 13 problem(s)
+  - slide 3 (The big idea: a diffusion model): number '2020' not in cited wiki pages ['concepts/diffusion-model.md']
+  - slide 6 (Step 2 · How it learns: the "guess the noise" game): number '2' not in cited wiki pages ['concepts/noise-prediction-training.md']
+  - slide 8 (Step 3 · The reverse process: making a picture from noise): number '3' not in cited wiki pages ['concepts/reverse-process.md']
+  - slide 10 (Making it fast: work in latent space): number '48' not in cited wiki pages ['concepts/latent-space.md']
+  - slide 13 (Following the prompt strongly: classifier-free guidance): number '10' not in cited wiki pages ['concepts/classifier-free-guidance.md']
+  - slide 13 (Following the prompt strongly: classifier-free guidance): number '20' not in cited wiki pages ['concepts/classifier-free-guidance.md']
+  - slide 16 (Summary): number '1000' not in cited wiki pages ['index.md', 'concepts/stable-diffusion-pipeline.md']
+  - slide 16 (Summary): number '2021' not in cited wiki pages ['index.md', 'concepts/stable-diffusion-pipeline.md']
+  - slide 16 (Summary): number '2022' not in cited wiki pages ['index.md', 'concepts/stable-diffusion-pipeline.md']
+  - slide 1 (title): uses 'diffusion model' before it is defined on slide 3
+  - slide 2 (The questions we will answer): uses 'guidance scale' before it is defined on slide 13
+  - slide 3 (The big idea: a diffusion model): uses 'forward process' before it is defined on slide 4
+  - slide 3 (The big idea: a diffusion model): uses 'reverse process' before it is defined on slide 8

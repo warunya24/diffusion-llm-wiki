@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Source: Jay Alammar, &quot;The Illustrated Stable Diffusion&quot; (2022)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='alammar-illustrated-sd.md'>view .md source</a></div><h1>Source: Jay Alammar, "The Illustrated Stable Diffusion" (2022)</h1>
+<ul>
+<li><strong>Citation:</strong> J. Alammar. <em>The Illustrated Stable Diffusion</em>. 2022 (V2 Nov 2022). https://jalammar.github.io/illustrated-stable-diffusion/</li>
+<li><strong>Raw capture:</strong> <a href="../../raw/03-alammar-illustrated-sd.html">03-alammar-illustrated-sd.md</a></li>
+<li><strong>Type:</strong> illustrated beginner explainer (best source for the "big picture" and tensor shapes)</li>
+</ul>
+<h2>Key takeaways</h2>
+<ol>
+<li>Stable Diffusion = 3 parts: text encoder → image information creator (U-Net + scheduler) → image decoder.</li>
+<li>The text becomes 77 vectors of 768 numbers.</li>
+<li>Diffusion happens on a small 4×64×64 latent; the decoder turns it into a 3×512×512 picture once at the end.</li>
+<li>Interfaces usually run 50 or 100 denoising steps.</li>
+<li>Text enters the U-Net through attention layers between its ResNet blocks.</li>
+</ol>
+<h2>Feeds concept pages</h2>
+<p><a href="../concepts/stable-diffusion-pipeline.html">stable-diffusion-pipeline</a> · <a href="../concepts/clip-text-encoder.html">clip-text-encoder</a> · <a href="../concepts/cross-attention.html">cross-attention</a> · <a href="../concepts/latent-space.html">latent-space</a> · <a href="../concepts/sampling-steps.html">sampling-steps</a> · <a href="../concepts/noise-prediction-training.html">noise-prediction-training</a></p></body></html>

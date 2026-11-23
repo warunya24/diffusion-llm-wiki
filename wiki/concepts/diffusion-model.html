@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Diffusion model</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='diffusion-model.md'>view .md source</a></div><h1>Diffusion model</h1>
+<h2>One-line definition</h2>
+<p>A generative model that learns to turn random noise into a realistic image by removing noise a little at a time.</p>
+<h2>Intuition / analogy</h2>
+<p>Imagine slowly dropping ink into clear water until it is completely cloudy. A diffusion model is trained to <em>run that movie backwards</em>: from a cloudy glass back to the clean picture.</p>
+<h2>Details</h2>
+<ul>
+<li>A diffusion model is a chain of small steps (a Markov chain), trained so that after a fixed number of steps it outputs samples that look like the training data. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>It has two halves: a fixed forward process that adds noise, and a learned reverse process that removes it. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>The idea is inspired by non-equilibrium thermodynamics: slowly add random noise to data, then learn to reverse that process. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Unlike VAEs or flow models, the noising procedure is fixed and the hidden variables have the same size as the image itself. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+</ul>
+<h2>Key numbers</h2>
+<ul>
+<li>DDPM reached FID 3.17 on unconditional CIFAR10 (lower FID = better image quality). <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="forward-process.html">forward-process</a> · <a href="reverse-process.html">reverse-process</a> · <a href="noise-prediction-training.html">noise-prediction-training</a></p></body></html>

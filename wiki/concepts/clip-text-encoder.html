@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Text encoder (CLIP text model)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='clip-text-encoder.md'>view .md source</a></div><h1>Text encoder (CLIP text model)</h1>
+<h2>One-line definition</h2>
+<p>The part that turns your prompt into numbers (vectors) that capture its meaning, so the image model can "read" it.</p>
+<h2>Intuition / analogy</h2>
+<p>A translator that converts a sentence into a language the painter understands: lists of numbers.</p>
+<h2>Details</h2>
+<ul>
+<li>Stable Diffusion's text encoder (ClipText) outputs 77 token embeddings, each a vector of 768 numbers. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>CLIP is trained on image–caption pairs: matching pairs are pushed toward high cosine similarity, mismatched pairs toward low similarity. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>CLIP = Contrastive Language–Image Pre-training: an image encoder and a text encoder are trained together to predict which caption belongs to which image. <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+<li>The training data are (image, text) pairs collected from the internet. <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+<li>Because text and images share one vector space, CLIP can classify images zero-shot by comparing them with text such as "a photo of a dog". <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+<li>Limitations: weak at counting objects and at fine-grained categories (car models, flower species); sensitive to wording. <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+</ul>
+<blockquote>
+<p>⚠️ Conflict (found at ingest #4): Alammar presents "400 million pairs" only as an <em>illustrative</em> number, while the CLIP paper states 400 million (image, text) pairs as the real dataset size. <strong>We trust the original paper</strong> <a class="src" href="../../wiki/sources/clip.html">src: clip</a>; Alammar's caveat is about the exact data (web images + alt text), not the count. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></p>
+</blockquote>
+<h2>Key numbers</h2>
+<ul>
+<li>77 tokens × 768 dimensions. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>Trained on 400 million (image, text) pairs. <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+<li>Blog proxy task: choose the right caption out of 32,768 text snippets. <a class="src" href="../../wiki/sources/clip.html">src: clip</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="cross-attention.html">cross-attention</a> · <a href="stable-diffusion-pipeline.html">stable-diffusion-pipeline</a></p></body></html>

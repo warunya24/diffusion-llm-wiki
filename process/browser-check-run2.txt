@@ -1,0 +1,3 @@
+browser_check: 16 slides screenshotted to /tmp/shots2
+console errors: none
+layout/link issues: none

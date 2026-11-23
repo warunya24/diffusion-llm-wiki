@@ -1,0 +1,18 @@
+[
+ {"n":1,"title":"Title","wiki":["index.md","concepts/diffusion-model.md"],"defines":["diffusion model"]},
+ {"n":2,"title":"The questions we will answer","wiki":["index.md"],"defines":[]},
+ {"n":3,"title":"The big idea","wiki":["concepts/diffusion-model.md","sources/ddpm.md"],"defines":["forward process","reverse process"]},
+ {"n":4,"title":"Forward process (interactive)","wiki":["concepts/forward-process.md","concepts/noise-schedule.md"],"defines":["noise schedule"]},
+ {"n":5,"title":"Shortcut formula","wiki":["concepts/forward-process.md","concepts/noise-schedule.md"],"defines":[]},
+ {"n":6,"title":"Training: guess the noise","wiki":["concepts/noise-prediction-training.md"],"defines":["noise prediction"]},
+ {"n":7,"title":"U-Net","wiki":["concepts/u-net.md"],"defines":["u-net"]},
+ {"n":8,"title":"Reverse process (animation)","wiki":["concepts/reverse-process.md"],"defines":[]},
+ {"n":9,"title":"Fewer steps: DDIM","wiki":["concepts/sampling-steps.md","concepts/reverse-process.md"],"defines":["ddim","sampling steps"]},
+ {"n":10,"title":"Latent space","wiki":["concepts/latent-space.md"],"defines":["latent space","autoencoder"]},
+ {"n":11,"title":"CLIP text encoder","wiki":["concepts/clip-text-encoder.md"],"defines":["clip","text encoder"]},
+ {"n":12,"title":"Cross-attention","wiki":["concepts/cross-attention.md","concepts/u-net.md"],"defines":["cross-attention"]},
+ {"n":13,"title":"Classifier-free guidance (interactive)","wiki":["concepts/classifier-free-guidance.md"],"defines":["classifier-free guidance","guidance scale"]},
+ {"n":14,"title":"Pipeline","wiki":["concepts/stable-diffusion-pipeline.md"],"defines":[]},
+ {"n":15,"title":"Quiz","wiki":["concepts/noise-prediction-training.md","concepts/forward-process.md","concepts/latent-space.md","concepts/classifier-free-guidance.md","concepts/clip-text-encoder.md"],"defines":[]},
+ {"n":16,"title":"Summary","wiki":["index.md","concepts/stable-diffusion-pipeline.md","concepts/sampling-steps.md","sources/clip.md","sources/latent-diffusion.md","sources/classifier-free-guidance-paper.md"],"defines":[]}
+]

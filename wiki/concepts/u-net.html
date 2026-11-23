@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>U-Net (the noise-predicting network)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='u-net.md'>view .md source</a></div><h1>U-Net (the noise-predicting network)</h1>
+<h2>One-line definition</h2>
+<p>The neural network inside a diffusion model that looks at a noisy image and outputs a same-sized "noise map".</p>
+<h2>Intuition / analogy</h2>
+<p>A "U" shape: squeeze the picture down to understand <em>what</em> is in it, then expand it back up to say <em>where</em> the noise is.</p>
+<h2>Details</h2>
+<ul>
+<li>DDPM uses a U-Net similar to PixelCNN++, with group normalization. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>The same weights are used for every time step; the step number is given to the network as a sinusoidal embedding (like positions in a Transformer). <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>Self-attention is used at the 16x16 feature-map resolution. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+<li>Structure: a downsampling path (lower resolution, more channels), an upsampling path, and skip connections that carry fine details across. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>A newer alternative backbone is the Diffusion Transformer (DiT), which works on patches of the latent. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+</ul>
+<h2>Key numbers</h2>
+<ul>
+<li>Self-attention at 16x16 resolution. <a class="src" href="../../wiki/sources/ddpm.html">src: ddpm</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="noise-prediction-training.html">noise-prediction-training</a>
+<a href="forward-process.html">forward-process</a> · <a href="latent-space.html">latent-space</a></p></body></html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Run log: one full execution of the workflow (2026-11-23)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='run-log.md'>view .md source</a></div><h1>Run log: one full execution of the workflow (2026-11-23)</h1>
+<p>The raw check outputs are saved next to this file:
+<code>slides-check-run1.txt</code>, <code>slides-check-run2.txt</code>, <code>browser-check-run1.txt</code>, <code>browser-check-run2.txt</code>.
+The wiki's own chronological log is in <code>wiki/log.md</code>.</p>
+<h2>Summary table</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Node</th>
+<th>Run</th>
+<th>Result</th>
+<th>What was found</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>N0 Discuss</td>
+<td>n/a</td>
+<td>done</td>
+<td>scope, 7 questions, 11 planned concepts, 6 sources</td>
+<td><code>00-discussion.md</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>N2+C1 ingest #1 DDPM</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>3</td>
+<td>N2+C1 ingest #2 Weng</td>
+<td>1</td>
+<td>❌ FAIL (2)</td>
+<td>placeholder <code>- (none yet)</code> read as an uncited fact</td>
+<td>placeholders written as plain text</td>
+</tr>
+<tr>
+<td>4</td>
+<td>N2+C1 ingest #2 Weng</td>
+<td>2</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>5</td>
+<td>N2+C1 ingest #3 Alammar</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>6</td>
+<td>N2+C1 ingest #4 CLIP</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td><strong>conflict:</strong> "400 million pairs" called <em>illustrative</em> by Alammar, stated as fact by the CLIP paper</td>
+<td>⚠️ conflict note, trust the paper</td>
+</tr>
+<tr>
+<td>7</td>
+<td>N2+C1 ingest #5 LDM</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>8</td>
+<td>N2+C1 ingest #6 CFG</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td><strong>conflict:</strong> paper uses w, tools use s = 1 + w</td>
+<td>⚠️ conflict note (and a warning box on the slide)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>N3 Lint (script)</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td>6 sources, 12 concepts, 0 orphans</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>10</td>
+<td>N3 checker self-test</td>
+<td>1</td>
+<td>✅ caught 3/3</td>
+<td>injected: orphan page, uncited bullet, fake number "860"</td>
+<td>proves a PASS is meaningful</td>
+</tr>
+<tr>
+<td>11</td>
+<td>N3 Lint (manual)</td>
+<td>1</td>
+<td>❌ 1 issue</td>
+<td>"1000 steps" vs "50 or 100 steps" never explained</td>
+<td>bridging bullet in <code>reverse-process</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td>N3 Lint (script)</td>
+<td>2</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>13</td>
+<td>N6+C2 slides</td>
+<td><strong>1</strong></td>
+<td>❌ <strong>FAIL (13)</strong></td>
+<td>see below</td>
+<td>fixed 7 slides; added N5</td>
+</tr>
+<tr>
+<td>14</td>
+<td>N6+C2 slides</td>
+<td>2</td>
+<td>✅ PASS</td>
+<td>16 slides, 31 wiki refs, 15 tracked terms</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>15</td>
+<td>N7 browser (script)</td>
+<td>1</td>
+<td>✅ PASS</td>
+<td>0 console errors, 0 overflow, 0 broken links</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>16</td>
+<td>N7 browser (human look)</td>
+<td>1</td>
+<td>❌ 2 issues</td>
+<td>CFG demo: "guided" sat on "cond" at default s = 1; pipeline boxes cramped + hint text crowding footer</td>
+<td>default s = 3, wider middle box, hint removed</td>
+</tr>
+<tr>
+<td>17</td>
+<td>N7 browser (human look)</td>
+<td>2</td>
+<td>❌ 1 issue</td>
+<td>CFG demo point clipped at top-right at s = 3</td>
+<td>rescaled diagram</td>
+</tr>
+<tr>
+<td>18</td>
+<td>N7 browser (script + look)</td>
+<td>3</td>
+<td>✅ PASS</td>
+<td>n/a</td>
+<td>publish</td>
+</tr>
+</tbody>
+</table>
+<h2>Detail: slide check run 1 (C2): 13 problems</h2>
+<pre><code>slide 3:  number '2020' not in cited wiki pages ['concepts/diffusion-model.md']
+slide 6:  number '2' not in cited wiki pages            ← &quot;Step 2&quot; title (false positive)
+slide 8:  number '3' not in cited wiki pages            ← &quot;Step 3&quot; title (false positive)
+slide 10: number '48' not in cited wiki pages           ← I computed &quot;48× fewer numbers&quot; myself
+slide 13: number '10' / '20' not in cited wiki pages    ← &quot;10–20%&quot; = my conversion of 0.1 / 0.2
+slide 16: number '1000', '2021', '2022' not in cited wiki pages
+slide 1:  uses 'diffusion model' before it is defined on slide 3
+slide 2:  uses 'guidance scale' before it is defined on slide 13
+slide 3:  uses 'forward process' before it is defined on slide 4
+slide 3:  uses 'reverse process' before it is defined on slide 8
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Count</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number not supported by the cited wiki page (made up / converted / cited the wrong page)</td>
+<td>7</td>
+<td>removed "48×", wrote 0.1 / 0.2 exactly as in the wiki, added the missing source pages to <code>data-wiki</code></td>
+</tr>
+<tr>
+<td>Term used before its definition</td>
+<td>4</td>
+<td>title gives a one-line definition; roadmap rephrased without jargon; slide 3 already defines forward/reverse in one line, so the definition moved there</td>
+</tr>
+<tr>
+<td>False positive in the checker</td>
+<td>2</td>
+<td>step labels marked <code>class="nocheck"</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Detail: what the checker <em>cannot</em> catch (honest limits)</h2>
+<ul>
+<li>A wrong claim that contains <strong>no number</strong> (e.g. "CLIP is trained on captions written by humans") passes C2. Only the wiki citations and a human read protect against that.</li>
+<li>Source pages have numbered takeaway lists ("1." to "5."), so small digits like 1 to 5 are always "allowed". A fake "3 steps" would pass.</li>
+<li>Layout problems passed the script but were obvious in the screenshots. This is why N7 includes a human look.</li>
+</ul></body></html>

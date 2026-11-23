@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>RAW CAPTURE: CLIP (paper + OpenAI blog)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='04-clip.md'>view .md source</a></div><h1>RAW CAPTURE: CLIP (paper + OpenAI blog)</h1>
+<ul>
+<li>Paper: Radford, Kim, Hallacy, Ramesh, Goh, Agarwal, et al., "Learning Transferable Visual Models From Natural Language Supervision", arXiv 2103.00020, Feb 2021 (ICML 2021)</li>
+<li>Blog: OpenAI, "CLIP: Connecting text and images", https://openai.com/research/clip</li>
+<li>Captured: 2026-11-23</li>
+</ul>
+<h2>Facts extracted (paraphrased)</h2>
+<ul>
+<li>CLIP = Contrastive Language-Image Pre-training.</li>
+<li>Pre-training task: predict which caption goes with which image. Paper: trained from scratch on 400 million (image, text) pairs collected from the internet.</li>
+<li>CLIP jointly trains an image encoder and a text encoder to predict correct pairings in a batch.</li>
+<li>Blog: proxy task = for an image, pick which of 32,768 randomly sampled text snippets was really paired with it.</li>
+<li>Contrastive objective was 4x to 10x more efficient than an image-to-text (caption-generating) objective for zero-shot ImageNet.</li>
+<li>Best model: Vision Transformer, trained on 256 GPUs for 2 weeks.</li>
+<li>Zero-shot classification: write class names as text ("a photo of a dog") and pick the best-matching text. Matches original ResNet-50 ImageNet accuracy zero-shot without using its 1.28 million labelled examples.</li>
+<li>Limitations: weak at counting, fine-grained types (car models, flowers), out-of-distribution images (MNIST 88%), sensitive to wording.</li>
+</ul></body></html>

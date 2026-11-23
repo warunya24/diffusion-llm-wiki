@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>CLAUDE.md: Schema for the &quot;Text-to-Image Diffusion&quot; LLM Wiki</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='CLAUDE.md'>view .md source</a></div><h1>CLAUDE.md: Schema for the "Text-to-Image Diffusion" LLM Wiki</h1>
+<p>This file is the operating manual for the AI that maintains this wiki.
+Read it before every <strong>ingest</strong>, <strong>query</strong>, or <strong>lint</strong> operation.</p>
+<h2>Purpose</h2>
+<p>A small knowledge base that explains <strong>how AI turns text into images (diffusion models)</strong>,
+written for a beginner who knows basic ML (what a neural network and a loss function are)
+but has never studied generative models.</p>
+<h2>Layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Folder</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw sources</td>
+<td><code>raw/</code></td>
+<td>Capture notes of each source (URL, date read, facts extracted). <strong>Never edited after ingest.</strong></td>
+</tr>
+<tr>
+<td>Wiki</td>
+<td><code>wiki/</code></td>
+<td>LLM-maintained pages. Every factual claim must cite a source page.</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td><code>wiki/CLAUDE.md</code></td>
+<td>This file. Changed only when the workflow changes (record why in <code>log.md</code>).</td>
+</tr>
+</tbody>
+</table>
+<h2>Page types</h2>
+<ul>
+<li><code>wiki/sources/&lt;slug&gt;.md</code>: one page per ingested source: citation, 3–6 key takeaways, which concept pages it feeds.</li>
+<li><code>wiki/concepts/&lt;slug&gt;.md</code>: one page per idea. Fixed sections:</li>
+<li><strong>One-line definition</strong> (plain English, no symbols)</li>
+<li><strong>Intuition / analogy</strong></li>
+<li><strong>Details</strong> (bullets; each bullet ends with a citation like <code><a class="src" href="../wiki/sources/ddpm.html">src: ddpm</a></code>)</li>
+<li><strong>Key numbers</strong> (only numbers that appear in a source page)</li>
+<li><strong>Related</strong> (links to other concept pages)</li>
+<li><code>wiki/index.md</code>: table of contents. Every page must be linked here.</li>
+<li><code>wiki/log.md</code>: append-only, chronological record of every ingest / lint / query.</li>
+</ul>
+<h2>Citation rule</h2>
+<ul>
+<li>A citation looks like <code>[src: &lt;source-slug&gt;]</code> and must match a file in <code>wiki/sources/</code>.</li>
+<li>If two sources disagree, write <strong>both</strong> and add a <code>&gt; ⚠️ Conflict:</code> note explaining which one we trust and why.</li>
+<li>Numbers (dimensions, step counts, dataset sizes) are copied <strong>only</strong> from sources, never from model memory.</li>
+</ul>
+<h2>Operations</h2>
+<h3>Ingest <code>&lt;raw file&gt;</code></h3>
+<ol>
+<li>Read the raw capture note.</li>
+<li>Create/update <code>wiki/sources/&lt;slug&gt;.md</code>.</li>
+<li>Create or update the concept pages it touches (add bullets with citations; do not delete other sources' bullets).</li>
+<li>Add cross-links in <strong>Related</strong>.</li>
+<li>Update <code>index.md</code> and append to <code>log.md</code>.</li>
+<li>Run <code>python tools/check_wiki.py</code> → fix until it passes (<strong>ingest check</strong>).</li>
+</ol>
+<h3>Query <code>&lt;question&gt;</code></h3>
+<p>Answer only from wiki pages; cite the pages used. If the wiki can't answer, say so and propose a source to ingest.</p>
+<h3>Lint</h3>
+<p>Run <code>python tools/check_wiki.py --full</code>, then manually look for contradictions between concept pages.</p>
+<h2>Slide generation rules (for the teaching deck)</h2>
+<ul>
+<li>Every content slide declares the wiki pages it uses (<code>data-wiki="concepts/x.md,..."</code>).</li>
+<li>A term may not appear on a slide before the slide that defines it.</li>
+<li>Any number on a slide must appear in one of the wiki pages that slide cites.</li>
+<li>Run <code>python tools/check_slides.py</code> after generating; regenerate only the failing slides.</li>
+</ul></body></html>

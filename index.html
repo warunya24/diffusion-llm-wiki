@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Wiki → Teaching Slides: How does AI turn text into images?</title>
+<style>
+  :root{--bg:#fbfaf7;--ink:#1d2533;--muted:#5d6778;--line:#e1e4ea;--accent:#d98a1c;--blue:#1f63b5;--chk:#fff4e0;--chkline:#e3a548}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.6}
+  main{max-width:980px;margin:0 auto;padding:40px 22px 60px}
+  h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:.2em 0}
+  h2{margin-top:2em;border-bottom:2px solid var(--line);padding-bottom:6px}
+  a{color:var(--blue)}
+  .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--muted)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:.15s}
+  .card:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .card b{display:block;font-size:18px;margin-bottom:4px}
+  .card span{color:var(--muted);font-size:14px}
+  .flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:20px 0}
+  .node{background:#fff;border:1.5px solid #9db6d8;border-radius:10px;padding:8px 14px;min-width:300px;text-align:center;font-size:15px}
+  .node.chk{background:var(--chk);border-color:var(--chkline)}
+  .node.new{border:2.5px solid var(--accent)}
+  .node small{display:block;color:var(--muted);font-size:12.5px}
+  .down{color:#9aa5b5;font-size:18px;line-height:1.3;text-align:center}
+  .loop{font-size:12.5px;color:#b5651d;margin:-2px 0 2px}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff}
+  td,th{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  th{background:#f2f4f7}
+  .legend span{display:inline-block;padding:1px 8px;border-radius:6px;margin-right:6px;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Homework · LLM Wiki → teaching HTML slides</div>
+  <h1>How does AI turn text into images?<br><span style="color:var(--accent)">Diffusion models</span></h1>
+  <p>I built an <b>LLM Wiki</b> about text-to-image diffusion models from 6 sources (3 papers, 2 explainer blogs, 1 paper + official blog),
+  then used the wiki as the <b>only</b> knowledge source for a 16-slide teaching deck for beginners.
+  Every slide's footer links to the wiki pages it was built from.</p>
+
+  <div class="cards">
+    <a class="card" href="slides.html"><b>🎞️ Teaching slides</b><span>16 slides · 3 interactive demos · quiz</span></a>
+    <a class="card" href="wiki/index.html"><b>📚 The LLM Wiki</b><span>6 source pages · 12 concept pages · schema · log</span></a>
+    <a class="card" href="process/workflow.html"><b>🔁 Loop / graph design</b><span>nodes, checks, loops, and why</span></a>
+    <a class="card" href="process/run-log.html"><b>🧾 Run log</b><span>every check result from one real run</span></a>
+    <a class="card" href="process/reflection.html"><b>🤔 Reflection</b><span>which node failed most and what I changed</span></a>
+    <a class="card" href="process/00-discussion.html"><b>💬 Discuss-first plan</b><span>scope agreed before generating</span></a>
+  </div>
+
+  <h2>The workflow graph (v2)</h2>
+  <p class="legend"><span style="background:#fff;border:1.5px solid #9db6d8">action node</span><span style="background:var(--chk);border:1.5px solid var(--chkline)">check node</span><span style="border:2.5px solid var(--accent)">added after run 1</span></p>
+  <div class="flow">
+    <div class="node">N0 · Discuss scope (human + AI)<small>audience, 7 questions, concept list, source list</small></div><div class="down">↓</div>
+    <div class="node">N1 · Collect sources → raw capture notes</div><div class="down">↓</div>
+    <div class="node">N2 · Ingest ONE source<small>source page + cited bullets on concept pages</small></div><div class="down">↓</div>
+    <div class="node chk">C1 · Ingest check (check_wiki.py)<small>citations exist · links work · numbers match raw source</small></div>
+    <div class="loop">↺ fail → back to N2 · pass → next source (×6)</div><div class="down">↓</div>
+    <div class="node chk">N3 · Lint (full check + manual contradiction read)</div>
+    <div class="loop">↺ problem → fix in N2</div><div class="down">↓</div>
+    <div class="node">N4 · Slide plan (teaching order, wiki pages per slide)</div><div class="down">↓</div>
+    <div class="node new chk">N5 · Fact sheet ★<small>allowed numbers + allowed terms for each slide, built from the wiki</small></div>
+    <div class="loop">↺ wiki can't support a slide → back to N1</div><div class="down">↓</div>
+    <div class="node">N6 · Generate slides (query the wiki)</div><div class="down">↓</div>
+    <div class="node chk">C2 · Grounding + order check (check_slides.py)<small>numbers in cited pages · no term before its definition</small></div>
+    <div class="loop">↺ fail → regenerate only failing slides</div><div class="down">↓</div>
+    <div class="node chk">N7 · Render check (headless Chrome + human look)</div>
+    <div class="loop">↺ layout problem → back to N6</div><div class="down">↓</div>
+    <div class="node">Publish</div>
+  </div>
+
+  <h2>Results of one real run</h2>
+  <table>
+    <tr><th>Node</th><th>Runs</th><th>Problems found</th><th>Example</th></tr>
+    <tr><td>C1 Ingest check</td><td>7</td><td>2 (+2 source conflicts noted)</td><td>CLIP "400 million": illustrative in one source, fact in the paper</td></tr>
+    <tr><td>N3 Lint</td><td>2 (+ self-test)</td><td>1</td><td>"1000 steps" vs "50 or 100 steps" never explained</td></tr>
+    <tr><td><b>C2 Slide check</b></td><td>2</td><td><b>13</b></td><td>"48× fewer numbers": the AI's own arithmetic, in no source</td></tr>
+    <tr><td>N7 Render</td><td>3</td><td>3 (only seen by a human)</td><td>guidance demo point hidden under the "cond" point</td></tr>
+  </table>
+  <p><b>Most error-prone node:</b> slide generation. <b>Fix:</b> moved the check earlier by adding the fact sheet (N5) before generation.
+  <a href="process/reflection.html">Read the reflection →</a></p>
+
+  <h2>Sources ingested</h2>
+  <ol>
+    <li>Ho, Jain &amp; Abbeel (2020). <i>Denoising Diffusion Probabilistic Models</i>. <a href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a></li>
+    <li>Lilian Weng (2021, updated 2024). <i>What are Diffusion Models?</i> <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lil'Log</a></li>
+    <li>Jay Alammar (2022). <i>The Illustrated Stable Diffusion</i>. <a href="https://jalammar.github.io/illustrated-stable-diffusion/">blog</a></li>
+    <li>Radford et al. (2021). <i>Learning Transferable Visual Models From Natural Language Supervision</i> (CLIP). <a href="https://arxiv.org/abs/2103.00020">arXiv:2103.00020</a> + <a href="https://openai.com/research/clip">OpenAI blog</a></li>
+    <li>Rombach et al. (2022). <i>High-Resolution Image Synthesis with Latent Diffusion Models</i>. <a href="https://arxiv.org/abs/2112.10752">arXiv:2112.10752</a></li>
+    <li>Ho &amp; Salimans (2022). <i>Classifier-Free Diffusion Guidance</i>. <a href="https://arxiv.org/abs/2207.12598">arXiv:2207.12598</a></li>
+  </ol>
+</main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Source: Classifier-Free Diffusion Guidance (Ho &amp; Salimans, 2022)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='classifier-free-guidance-paper.md'>view .md source</a></div><h1>Source: Classifier-Free Diffusion Guidance (Ho &amp; Salimans, 2022)</h1>
+<ul>
+<li><strong>Citation:</strong> J. Ho, T. Salimans. <em>Classifier-Free Diffusion Guidance</em>. arXiv 2207.12598, 2022 (short version: NeurIPS 2021 workshop). https://arxiv.org/abs/2207.12598</li>
+<li><strong>Raw capture:</strong> <a href="../../raw/06-classifier-free-guidance.html">06-classifier-free-guidance.md</a></li>
+<li><strong>Type:</strong> research paper</li>
+</ul>
+<h2>Key takeaways</h2>
+<ol>
+<li>Classifier guidance needed a second network (a classifier trained on noisy images).</li>
+<li>CFG: train one model that sometimes sees no condition; at sampling time mix "with prompt" and "without prompt" predictions.</li>
+<li>Dropping the condition 10–20% of the time works well; 50% is worse.</li>
+<li>Bigger guidance weight → images match the condition better but are less diverse.</li>
+</ol>
+<h2>Feeds concept pages</h2>
+<p><a href="../concepts/classifier-free-guidance.html">classifier-free-guidance</a></p></body></html>

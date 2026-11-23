@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Sampling steps (and why fewer steps can work)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='sampling-steps.md'>view .md source</a></div><h1>Sampling steps (and why fewer steps can work)</h1>
+<h2>One-line definition</h2>
+<p>How many denoising passes the model makes to produce one image; smarter samplers can skip most of the original steps.</p>
+<h2>Intuition / analogy</h2>
+<p>Walking down a staircase of 1000 steps vs. taking the same staircase two or three steps at a time: you reach the bottom much faster.</p>
+<h2>Details</h2>
+<ul>
+<li>DDIM generalises the DDPM reverse process; with its parameter eta = 0 the process becomes deterministic (same noise in → same image out). <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>DDIM can follow a strided subset of the steps, so it needs far fewer steps than DDPM while keeping good quality. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Other ways to speed up: progressive distillation and consistency models. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>In Stable Diffusion interfaces the number of steps often defaults to 50 or 100. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+</ul>
+<h2>Key numbers</h2>
+<ul>
+<li>DDPM training uses T = 1000 steps. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Typical default in Stable Diffusion tools: 50 or 100 steps. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="reverse-process.html">reverse-process</a> · <a href="noise-schedule.html">noise-schedule</a></p></body></html>

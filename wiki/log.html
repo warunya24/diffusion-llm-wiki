@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Log (append-only)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../index.html'>🏠 Project home</a> · <a href='../wiki/index.html'>📚 Wiki index</a> · <a href='../slides.html'>🎞️ Slides</a> · <a href='log.md'>view .md source</a></div><h1>Log (append-only)</h1>
+<h2>[2026-11-23] setup</h2>
+<ul>
+<li>Agreed scope, audience, 7 guiding questions and concept list (see <code>process/00-discussion.md</code>).</li>
+<li>Wrote schema <code>wiki/CLAUDE.md</code> and checker <code>tools/check_wiki.py</code>.</li>
+</ul>
+<h2>[2026-11-23] ingest #1: raw/01-ddpm-paper.md</h2>
+<ul>
+<li>Created source page <code>ddpm</code> and 6 concept pages.</li>
+<li>Ingest check: PASS on first run.</li>
+</ul>
+<h2>[2026-11-23] ingest #2: raw/02-weng-blog.md</h2>
+<ul>
+<li>Created source page <code>weng-blog</code>; new concepts <code>sampling-steps</code>, <code>latent-space</code>, <code>classifier-free-guidance</code>; added bullets to diffusion-model, forward-process, noise-schedule, u-net.</li>
+<li>Ingest check run 1: <strong>FAIL (2)</strong>. Placeholder line "- (none yet)" in Key numbers was parsed as an uncited fact.</li>
+<li>Fix: placeholders are written as plain text <code>_(none yet)_</code>, not as bullets. Ingest check run 2: PASS.</li>
+<li>Ingest check: PASS.</li>
+</ul>
+<h2>[2026-11-23] ingest #3: raw/03-alammar-illustrated-sd.md</h2>
+<ul>
+<li>Created source page <code>alammar-illustrated-sd</code>; new concepts <code>clip-text-encoder</code>, <code>cross-attention</code>, <code>stable-diffusion-pipeline</code>; added tensor shapes to <code>latent-space</code>, step defaults to <code>sampling-steps</code>.</li>
+<li>Ingest check: PASS.</li>
+</ul>
+<h2>[2026-11-23] ingest #4: raw/04-clip.md</h2>
+<ul>
+<li>Created source page <code>clip</code>; added 4 Details bullets + 2 Key numbers to <code>clip-text-encoder</code>.</li>
+<li><strong>Conflict found during ingest:</strong> Alammar calls "400 million pairs" illustrative; the CLIP paper states 400 million as the real size. Wrote a ⚠️ Conflict note; trust the paper.</li>
+<li>Ingest check: PASS.</li>
+</ul>
+<h2>[2026-11-23] ingest #5: raw/05-latent-diffusion.md</h2>
+<ul>
+<li>Created source page <code>latent-diffusion</code>; added motivation, two-stage design and factor f to <code>latent-space</code>; conditioning encoder to <code>cross-attention</code>; 1.45B model to <code>stable-diffusion-pipeline</code>.</li>
+<li>Ingest check: PASS.</li>
+</ul>
+<h2>[2026-11-23] ingest #6: raw/06-classifier-free-guidance.md</h2>
+<ul>
+<li>Created source page <code>classifier-free-guidance-paper</code>; added 4 Details + 2 Key numbers to <code>classifier-free-guidance</code>.</li>
+<li><strong>Conflict found during ingest:</strong> paper formula (1+w)·cond − w·uncond vs common form uncond + s·(cond − uncond). Same rule with s = 1 + w. Wrote ⚠️ Conflict note so slides don't mix up w and s.</li>
+<li>Ingest check: PASS.</li>
+</ul>
+<h2>[2026-11-23] lint #1</h2>
+<ul>
+<li><code>check_wiki.py --full</code>: PASS (6 sources, 12 concepts, 0 orphans).</li>
+<li>Checker self-test on a temp copy with 3 injected faults (orphan page, uncited bullet, invented number "860"): all 3 caught → a PASS is meaningful.</li>
+<li><strong>Manual contradiction pass found 1 issue the script cannot see:</strong> pages say "1000 steps" (DDPM) and "50 or 100 steps" (Stable Diffusion tools) with no explanation. Added a bridging bullet to <code>reverse-process</code> linking to <code>sampling-steps</code>.</li>
+<li>Re-run <code>--full</code>: PASS.</li>
+</ul>
+<h2>[2026-11-23] query: slide generation (16 slides)</h2>
+<ul>
+<li>Slides generated from <code>process/slide-plan.json</code> using only wiki pages (each slide declares <code>data-wiki</code>).</li>
+<li>Slide check run 1: <strong>FAIL (13)</strong>: 7 unsupported numbers, 4 terms used before definition, 2 checker false positives. Details in <code>process/run-log.md</code>.</li>
+<li>Fixed 7 slides; slide check run 2: PASS.</li>
+<li>Workflow changed (v2): added fact-sheet node <code>tools/make_factsheet.py</code> before slide generation.</li>
+</ul>
+<h2>[2026-11-23] render check</h2>
+<ul>
+<li>Browser script: PASS (0 console errors, 0 overflow, 0 broken links). Human look at screenshots: 3 layout issues over 2 rounds, fixed. Final: PASS.</li>
+</ul></body></html>

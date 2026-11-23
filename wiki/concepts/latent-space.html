@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Latent space (working on a compressed image)</title><style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;
+line-height:1.6;color:#1d2533;background:#fbfaf7}a{color:#1f63b5}code{background:#eef1f5;padding:1px 5px;border-radius:4px}
+pre{background:#eef1f5;padding:12px;border-radius:8px;overflow:auto}blockquote{border-left:4px solid #e0a030;
+background:#fff6e5;margin:12px 0;padding:8px 14px}table{border-collapse:collapse}td,th{border:1px solid #d5dae2;padding:6px 10px}
+.top{font-size:14px;color:#667;border-bottom:1px solid #e3e6ea;padding-bottom:8px;margin-bottom:18px}
+.src{display:inline-block;background:#eaf2fd;color:#1f63b5;border-radius:12px;padding:0 8px;font-size:13px}</style></head><body><div class='top'><a href='../../index.html'>🏠 Project home</a> · <a href='../../wiki/index.html'>📚 Wiki index</a> · <a href='../../slides.html'>🎞️ Slides</a> · <a href='latent-space.md'>view .md source</a></div><h1>Latent space (working on a compressed image)</h1>
+<h2>One-line definition</h2>
+<p>Instead of denoising the full-size picture, first compress it into a much smaller grid of numbers, run diffusion there, and decompress at the end.</p>
+<h2>Intuition / analogy</h2>
+<p>Editing a small sketch of a painting and only painting the full canvas at the very end.</p>
+<h2>Details</h2>
+<ul>
+<li>Latent diffusion uses an autoencoder to compress images; the diffusion process runs in the smaller latent space, which lowers training and generation cost. <a class="src" href="../../wiki/sources/weng-blog.html">src: weng-blog</a></li>
+<li>Stable Diffusion denoises a latent of shape (4, 64, 64); the autoencoder's decoder turns it into an RGB image of shape (3, 512, 512), running only once at the end. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>Working in latent space is why Stable Diffusion is faster than earlier pixel-space diffusion models. <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>Motivation: training the strongest pixel-space diffusion models can take hundreds of GPU days, and sampling needs many sequential network passes. <a class="src" href="../../wiki/sources/latent-diffusion.html">src: latent-diffusion</a></li>
+<li>Two stages: (1) a pretrained autoencoder compresses images into a latent that still looks the same to humans; (2) the diffusion model is trained in that latent space. <a class="src" href="../../wiki/sources/latent-diffusion.html">src: latent-diffusion</a></li>
+<li>Compression factor f: values from 4 to 16 balance speed and quality; f = 4 and f = 8 gave the best results. Too much compression loses detail; too little trains slowly. <a class="src" href="../../wiki/sources/latent-diffusion.html">src: latent-diffusion</a></li>
+</ul>
+<h2>Key numbers</h2>
+<ul>
+<li>Latent (4, 64, 64) → image (3, 512, 512). <a class="src" href="../../wiki/sources/alammar-illustrated-sd.html">src: alammar-illustrated-sd</a></li>
+<li>Downsampling factor f = 4 to 16 works well; best at 4 and 8. <a class="src" href="../../wiki/sources/latent-diffusion.html">src: latent-diffusion</a></li>
+</ul>
+<h2>Related</h2>
+<p><a href="u-net.html">u-net</a> · <a href="diffusion-model.html">diffusion-model</a>
+<a href="stable-diffusion-pipeline.html">stable-diffusion-pipeline</a></p></body></html>
